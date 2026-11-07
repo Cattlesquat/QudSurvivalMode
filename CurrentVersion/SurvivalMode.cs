@@ -39,7 +39,7 @@ namespace XRL.World
                 MinWeight = 0.01;
             } else if (Category == "Food")
             {
-                if (E.Object.HasPart(PreservableItem))
+                if (E.Object.HasPart<PreservableItem>())
                 {
                     MinWeight = 0.2;
                 }
@@ -113,7 +113,7 @@ namespace XRL.World
                     "Welcome to {{psychalflesh|Survival Mode}}! Caves of Qud just got ... harder!\n" +
                     "* Fewer XP for turning in books\n" +
                     "* Fewer XP from defeating lower leveled enemies",
-                    "* Everything has weight! No more weight freebies..."
+                    "* Everything has weight! No more weight freebies...",
                     Title: "{{psychalflesh|Survival Mode 1.0}}"
                 );
             }
