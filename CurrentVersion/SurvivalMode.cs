@@ -112,7 +112,7 @@ namespace XRL.World
                 Popup.ShowBlock(
                     "Welcome to {{psychalflesh|Survival Mode}}! Caves of Qud just got ... harder!\n" +
                     "* Fewer XP for turning in books\n" +
-                    "* Fewer XP from defeating lower leveled enemies",
+                    "* Fewer XP from defeating lower leveled enemies" + 
                     "* Everything has weight! No more weight freebies...",
                     Title: "{{psychalflesh|Survival Mode 1.0}}"
                 );
