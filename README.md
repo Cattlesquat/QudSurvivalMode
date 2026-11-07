@@ -1,4 +1,4 @@
-Caves of Qud SURVIVAL MODE!
+Caves of Qud SURVIVAL MODE! (Currently only works with Diaspora testing branch)
 
 Caves of Qud just got ... harder! 
 * Half XP from books
