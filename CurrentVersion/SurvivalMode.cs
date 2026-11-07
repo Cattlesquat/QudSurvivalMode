@@ -10,6 +10,7 @@ using XRL.Core;
 using XRL.UI;
 using XRL.UI.Framework;
 using XRL.World.Capabilities;
+using XRL.World.Parts;
 using UnityEngine;
 
 
@@ -22,6 +23,43 @@ namespace XRL.World
         {
             Registrar.Register(ScaleXPEvent.ID);
             Registrar.Register(GetLibrarianXPEvent.ID);
+            Registrar.Register(GetIntrinsicWeightEvent.ID);
+        }
+
+        /// <summary>
+        /// Minimum weights for most things, even food and ammo 
+        /// </summary>
+        public override bool HandleEvent(GetIntrinsicWeightEvent E)
+        {
+            string Category = E.Object.GetInventoryCategory();
+            
+            Double MinWeight = 1.0;
+            if (Category == "Ammo")
+            {
+                MinWeight = 0.01;
+            } else if (Category == "Food")
+            {
+                if (E.Object.HasPart(PreservableItem))
+                {
+                    MinWeight = 0.2;
+                }
+                else
+                {
+                    MinWeight = 0.05;
+                }
+            } else if (Category == "Meds")
+            {
+                MinWeight = 0.1;
+            } else if (Category == "Tonics")
+            {
+                MinWeight = 0.05;
+            }
+
+            if (E.Weight < MinWeight)
+            {
+                E.Weight = MinWeight;
+            }
+            return base.HandleEvent(E);
         }
 
         /// <summary>
@@ -75,6 +113,7 @@ namespace XRL.World
                     "Welcome to {{psychalflesh|Survival Mode}}! Caves of Qud just got ... harder!\n" +
                     "* Fewer XP for turning in books\n" +
                     "* Fewer XP from defeating lower leveled enemies",
+                    "* Everything has weight! No more weight freebies..."
                     Title: "{{psychalflesh|Survival Mode 1.0}}"
                 );
             }
