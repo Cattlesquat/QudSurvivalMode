@@ -113,7 +113,8 @@ namespace XRL.World
                     "Welcome to {{psychalflesh|Survival Mode}}! Caves of Qud just got ... harder!\n" +
                     "* Fewer XP for turning in books\n" +
                     "* Fewer XP from defeating lower leveled enemies" + 
-                    "* Everything has weight! No more weight freebies...",
+                    "* Everything has weight! No more weight freebies..." +
+                    "* Cloned merchants don't get restocking inventories (Sorry, clone-of-Tilli!)",
                     Title: "{{psychalflesh|Survival Mode 1.0}}"
                 );
             }
