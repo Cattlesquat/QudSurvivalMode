@@ -112,9 +112,10 @@ namespace XRL.World
                 Popup.ShowBlock(
                     "Welcome to {{psychalflesh|Survival Mode}}! Caves of Qud just got ... harder!\n" +
                     "* Fewer XP for turning in books\n" +
-                    "* Fewer XP from defeating lower leveled enemies" + 
-                    "* Everything has weight! No more weight freebies..." +
-                    "* Cloned merchants don't get restocking inventories (Sorry, clone-of-Tilli!)",
+                    "* Fewer XP from defeating lower leveled enemies\n" + 
+                    "* Everything has weight! No more weight freebies...\n" +
+                    "* Cloned merchants don't get restocking inventories (Sorry, clone-of-Tilli!)\n" +
+                    "* Permanent body-swapping increases Psychic Glimmer\n",
                     Title: "{{psychalflesh|Survival Mode 1.0}}"
                 );
             }
