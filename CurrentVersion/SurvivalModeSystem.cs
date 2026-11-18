@@ -165,7 +165,8 @@ namespace XRL.World
                     "* Fewer XP for turning in books\n" +
                     "* Fewer XP from defeating lower leveled enemies\n" + 
                     "* Cloned merchants don't get restocking inventories (Sorry, clone-of-Tilli!)\n" +
-                    "* Permanent body-swapping increases Psychic Glimmer\n",
+                    "* Permanent body-swapping increases Psychic Glimmer\n" + 
+                    "* Identifying artifacts is much trickier!\n",
                     Title: "{{psychalflesh|Survival Mode 1.0}}"
                 );
             }
