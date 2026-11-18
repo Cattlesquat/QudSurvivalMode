@@ -109,16 +109,6 @@ namespace XRL.World
             if (FirstBootup)
             {
                 FirstBootup = false;
-                Popup.ShowBlock(
-                    "Welcome to {{psychalflesh|Survival Mode}}! Caves of Qud just got ... harder!\n" +
-                    "* Much lower starting faction levels, including with certain key factions\n" +
-                    "* Fewer XP for turning in books\n" +
-                    "* Fewer XP from defeating lower leveled enemies\n" + 
-                    "* Everything has weight! No more weight freebies...\n" +
-                    "* Cloned merchants don't get restocking inventories (Sorry, clone-of-Tilli!)\n" +
-                    "* Permanent body-swapping increases Psychic Glimmer\n",
-                    Title: "{{psychalflesh|Survival Mode 1.0}}"
-                );
 
                 The.Game.PlayerReputation.Modify("YdFreehold", -600, Silent: true);
                 The.Game.PlayerReputation.Modify("Ezra", -475, Silent: true);
@@ -166,6 +156,18 @@ namespace XRL.World
                 The.Game.PlayerReputation.Modify("SultanCult3", -200, Silent: true);
                 The.Game.PlayerReputation.Modify("SultanCult4", -200, Silent: true);
                 The.Game.PlayerReputation.Modify("SultanCult5", -200, Silent: true);
+                
+                Popup.ShowBlock(
+                    "Welcome to {{psychalflesh|Survival Mode}}! Caves of Qud just got ... harder!\n" +
+                    "* Everything has weight! No more weight freebies...\n" +
+                    "* Much lower starting faction levels, including with certain key factions\n" +
+                    "* Water rituals: companions cost more, secrets give you less\n" +
+                    "* Fewer XP for turning in books\n" +
+                    "* Fewer XP from defeating lower leveled enemies\n" + 
+                    "* Cloned merchants don't get restocking inventories (Sorry, clone-of-Tilli!)\n" +
+                    "* Permanent body-swapping increases Psychic Glimmer\n",
+                    Title: "{{psychalflesh|Survival Mode 1.0}}"
+                );
             }
         }
     }
