@@ -111,6 +111,7 @@ namespace XRL.World
                 FirstBootup = false;
                 Popup.ShowBlock(
                     "Welcome to {{psychalflesh|Survival Mode}}! Caves of Qud just got ... harder!\n" +
+                    "* Much lower starting faction levels, including with certain key factions\n" +
                     "* Fewer XP for turning in books\n" +
                     "* Fewer XP from defeating lower leveled enemies\n" + 
                     "* Everything has weight! No more weight freebies...\n" +
@@ -118,6 +119,53 @@ namespace XRL.World
                     "* Permanent body-swapping increases Psychic Glimmer\n",
                     Title: "{{psychalflesh|Survival Mode 1.0}}"
                 );
+
+                The.Game.PlayerReputation.Modify("YdFreehold", -600, Silent: true);
+                The.Game.PlayerReputation.Modify("Ezra", -475, Silent: true);
+                The.Game.PlayerReputation.Modify("Chavvah", -475, Silent: true);
+                The.Game.PlayerReputation.Modify("Kyakukya", -175, Silent: true);
+
+                The.Game.PlayerReputation.Modify("Newly Sentient Beings", -175, Silent: true);
+                The.Game.PlayerReputation.Modify("Dromad", -125, Silent: true);
+                
+                The.Game.PlayerReputation.Modify("Entropic", -175, Silent: true);
+                The.Game.PlayerReputation.Modify("Worms", -475, Silent: true);
+                The.Game.PlayerReputation.Modify("Oozes", -550, Silent: true);
+                The.Game.PlayerReputation.Modify("Robots", -475, Silent: true);
+                The.Game.PlayerReputation.Modify("Insects", -475, Silent: true);
+                The.Game.PlayerReputation.Modify("Winged Mammals", -300, Silent: true);
+                The.Game.PlayerReputation.Modify("Apes", -175, Silent: true);
+                The.Game.PlayerReputation.Modify("Birds", -175, Silent: true);
+                The.Game.PlayerReputation.Modify("Fish", -200, Silent: true);
+                The.Game.PlayerReputation.Modify("Goatfolk", -475, Silent: true);
+                The.Game.PlayerReputation.Modify("Hermits", -125, Silent: true);
+                The.Game.PlayerReputation.Modify("Frogs", -200, Silent: true);
+                The.Game.PlayerReputation.Modify("Svardym", -475, Silent: true);
+                The.Game.PlayerReputation.Modify("Naphtaali", -50, Silent: true);
+                The.Game.PlayerReputation.Modify("Strangers", -150, Silent: true);
+                The.Game.PlayerReputation.Modify("Pariahs", -100, Silent: true);
+                The.Game.PlayerReputation.Modify("Mopango", -100, Silent: true);
+                The.Game.PlayerReputation.Modify("Barathrumites", -150, Silent: true);
+                The.Game.PlayerReputation.Modify("Consortium", -110, Silent: true);
+                The.Game.PlayerReputation.Modify("Templar", -100, Silent: true);
+                The.Game.PlayerReputation.Modify("Mechanimists", -175, Silent: true);
+                The.Game.PlayerReputation.Modify("Gyre Wights", -250, Silent: true);
+                The.Game.PlayerReputation.Modify("Seekers", -250, Silent: true);
+                The.Game.PlayerReputation.Modify("Flowers", -175, Silent: true);
+                The.Game.PlayerReputation.Modify("Roots", -150, Silent: true);
+                The.Game.PlayerReputation.Modify("Fungi", -250, Silent: true);
+                The.Game.PlayerReputation.Modify("Vines", -250, Silent: true);
+                The.Game.PlayerReputation.Modify("Urchins", -250, Silent: true);
+                The.Game.PlayerReputation.Modify("Succulents", -175, Silent: true);
+                The.Game.PlayerReputation.Modify("Trees", -300, Silent: true);
+                The.Game.PlayerReputation.Modify("Merchants", -150, Silent: true);
+                The.Game.PlayerReputation.Modify("Farmers", -300, Silent: true);
+                The.Game.PlayerReputation.Modify("Daughters", -150, Silent: true);
+                The.Game.PlayerReputation.Modify("SultanCult1", -200, Silent: true);
+                The.Game.PlayerReputation.Modify("SultanCult2", -200, Silent: true);
+                The.Game.PlayerReputation.Modify("SultanCult3", -200, Silent: true);
+                The.Game.PlayerReputation.Modify("SultanCult4", -200, Silent: true);
+                The.Game.PlayerReputation.Modify("SultanCult5", -200, Silent: true);
             }
         }
     }
