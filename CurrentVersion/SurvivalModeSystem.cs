@@ -16,14 +16,16 @@ using UnityEngine;
 
 namespace XRL.World
 {
+    [Serializable]
     public class MODSurvivalModeSystem : IGameSystem
     {
-        private bool FirstBootup = true;
+        public bool FirstBootup = true;
         public override void Register(XRLGame Game, IEventRegistrar Registrar)
         {
             Registrar.Register(ScaleXPEvent.ID);
             Registrar.Register(GetLibrarianXPEvent.ID);
             Registrar.Register(GetIntrinsicWeightEvent.ID);
+            Registrar.Register(TinkeringVendorCostEvent.ID);
         }
 
         /// <summary>
@@ -102,7 +104,41 @@ namespace XRL.World
         {
             E.XPValue /= 2;
             return base.HandleEvent(E);
-        } 
+        }
+
+        public override bool HandleEvent(TinkeringVendorCostEvent E)
+        {
+            if ((E.Action == "Recharge") && (E.Rechargeable != null))
+            {
+                E.Cost = Math.Max(E.Rechargeable.GetRechargeAmount() / 100, 1); // Presently x5 the base game cost
+            } else if (E.Action == "Identify")
+            {
+                // Base game formula for reference
+                //int complexity = GO.GetComplexity();
+                //int difficulty = GO.GetExamineDifficulty();
+                //float x = (complexity + difficulty);
+                //int Cost = (int)Math.Max(2, -0.0667 + 1.24 * x + 0.0967 * Math.Pow(x,2) + 0.0979 * Math.Pow(x,3));
+                
+                E.Cost = E.Cost * 50; 
+            } else if (E.Action == "Repair")
+            {
+                //int cost = Math.Max(5 + (int) (GetValue(GO, false) / 25), 5) * GO.Count;  // base game formula for reference
+
+                // Repair has a gaping bug in base game where value is being heavily discounted *for being broken* before checking repair costs
+                Commerce Commerce = E.Object.GetPart<Commerce>();
+                double ValueEach = (Commerce != null) ? Commerce.Value : 0.01;
+                if (E.Object.WantEvent(GetIntrinsicValueEvent.ID, GetIntrinsicValueEvent.CascadeLevel))
+                {
+                    GetIntrinsicValueEvent IV = GetIntrinsicValueEvent.FromPool(E.Object, ValueEach);
+                    HandleEvent(IV);
+                    ValueEach = IV.Value;
+                }
+                
+                E.Cost = Math.Max((int) (ValueEach / 3), 10) * E.Object.Count; 
+            }
+            E.Cost = 0;
+            return base.HandleEvent(E);
+        }
         
         public void Startup()
         {

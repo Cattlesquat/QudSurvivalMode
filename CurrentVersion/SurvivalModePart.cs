@@ -27,15 +27,22 @@ namespace XRL.World.Parts
 				base.WantEvent(ID, cascade)
 				|| ID == GetWaterRitualSellSecretBehaviorEvent.ID
 				|| ID == GetWaterRitualCostEvent.ID
-				|| ID == TinkeringIdentifyEvent.ID;
+				|| ID == TinkeringIdentifyEvent.ID
+				|| ID == ModifyBitCostEvent.ID;
 		}
 		
+		/// <summary>
+		/// Have to sell more secrets to get same amount of faction
+		/// </summary>
 		public override bool HandleEvent(GetWaterRitualSellSecretBehaviorEvent E)
 		{
 			E.ReputationProvided = (E.ReputationProvided * 2 + 2) / 3;
 			return base.HandleEvent(E);
 		}
 
+		/// <summary>
+		/// Companions cost more faction points
+		/// </summary>
 		public override bool HandleEvent(GetWaterRitualCostEvent E)
 		{
 			if (E.Type == "Join")
@@ -90,7 +97,9 @@ namespace XRL.World.Parts
 					
 					if ((E.Understanding == 0) && (E.Complexity > 1) && (E.Understanding + E.Result < E.Complexity))
 					{
-						// If it's our very first try and we didn't break it, give a little clue about how hard this is going to be. (A chance to reassess) 
+						// If it's our very first try and we didn't break it, give a little clue about 
+                        // how hard this is going to be. (A chance to reassess, since otherwise the player
+                        // really has nothing to go on about whether continuing to try is a good idea) 
 						if (E.Complexity <= 3)
 						{
 							XRL.UI.Popup.Show("Well it's not the most complicated thing you've ever run across, let's see how this goes.");
@@ -111,8 +120,81 @@ namespace XRL.World.Parts
 
 			return base.HandleEvent(E);
 		}
-	}
 
+		/// <summary>
+		/// Make tinkering costs higher
+		/// </summary>
+		public override bool HandleEvent(ModifyBitCostEvent E)
+		{
+			// Alas this event doesn't touch "Ingredient" field. (And really I'd love to be able to require liquids in recipes) 
+
+			if ((E.Context == "Build") || (E.Context == "DataDisk") || (E.Context == "Mod") || (E.Context == "Repair"))
+			{
+				bool AnyBigBoys = false;
+				for (char bit = '1'; bit <= '8'; bit++)
+				{
+					BitType type = BitType.FetchBitByCode(bit); // The actual dictionary index is not the display character, it's ... the old color code character (!!!) 
+					char key = type.BitID; 
+					if (E.Bits.ContainsKey(key))
+					{
+						if ((bit >= '3') && E.Bits[key] > 0) AnyBigBoys = true;
+						E.Bits[key] = E.Bits[key] * 2;
+					}
+				}
+
+				for (char bit = 'A'; bit <= 'D'; bit++)
+				{
+					BitType type = BitType.FetchBitByCode(bit); // The actual dictionary index is not the display character, it's ... the old color code character(!!!) 
+					char key = type.BitID; 
+					if (E.Bits.ContainsKey(key)) E.Bits[key] = E.Bits[key] * (AnyBigBoys ? 3 : 2);
+				}
+
+            	if ((E.Context == "Mod") || (E.Context == "Repair")) {
+					int high = 0;
+					foreach (char bit in E.Bits.Keys)
+					{
+						int tier = BitType.GetBitTier(bit);
+						if (tier > high)
+						{
+							high = tier;
+						}
+					}
+
+					if (high > 0)
+					{
+						char highkey = BitType.FetchBitByCode((char)('0' + high)).BitID;
+	                    char nextkey = BitType.FetchBitByCode((char)('0' + high - 1)).BitID; 
+	                    char next2key = BitType.FetchBitByCode((char)('0' + high - 2)).BitID;
+
+                        if (E.Context == "Mod") {
+							E.Bits[highkey]--;
+
+							if (high > 4)
+							{
+								E.Bits[nextkey]++;
+								E.Bits[next2key] += 2;
+							} else if (high >= 2)
+							{
+								E.Bits[nextkey]++; 
+							}
+						} else if (E.Context == "Repair") {
+							E.Bits[highkey]--;
+
+							if (high > 2)
+							{
+								E.Bits[next2key]++;
+							}
+							else if (high == 2)
+							{
+								E.Bits[nextkey]++;
+							}
+						}
+	                }
+				}
+			}			
+			return base.HandleEvent(E);
+		}
+	}
 
 	[PlayerMutator]
 	public class SurvivalModePart_PlayerMutator : IPlayerMutator
