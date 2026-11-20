@@ -136,7 +136,6 @@ namespace XRL.World
                 
                 E.Cost = Math.Max((int) (ValueEach / 3), 10) * E.Object.Count; 
             }
-            E.Cost = 0;
             return base.HandleEvent(E);
         }
         
