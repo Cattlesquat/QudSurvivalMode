@@ -11,8 +11,9 @@ using XRL.UI;
 using XRL.UI.Framework;
 using XRL.World.Capabilities;
 using XRL.World.Parts;
+using XRL.World.Tinkering;
+using XRL.Liquids;
 using UnityEngine;
-
 
 namespace XRL.World
 {
@@ -141,6 +142,12 @@ namespace XRL.World
         
         public void Startup()
         {
+            //foreach (var recipe in TinkerData.TinkerRecipes) {
+			//	recipe.LiquidsRequired = new Dictionary<string,int>();
+            //    recipe.LiquidsRequired[LiquidID.Water] = 1;
+            //    recipe.LiquidsRequired[LiquidID.Acid]  = 30;
+            //}
+
             if (FirstBootup)
             {
                 FirstBootup = false;

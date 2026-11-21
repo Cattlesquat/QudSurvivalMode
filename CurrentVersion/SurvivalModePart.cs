@@ -28,7 +28,8 @@ namespace XRL.World.Parts
 				|| ID == GetWaterRitualSellSecretBehaviorEvent.ID
 				|| ID == GetWaterRitualCostEvent.ID
 				|| ID == TinkeringIdentifyEvent.ID
-				|| ID == ModifyBitCostEvent.ID;
+				|| ID == ModifyBitCostEvent.ID
+                || ID == TinkeringModifyRechargeCostEvent.ID;
 		}
 		
 		/// <summary>
@@ -191,9 +192,15 @@ namespace XRL.World.Parts
 						}
 	                }
 				}
-			}			
+            }			
 			return base.HandleEvent(E);
 		}
+
+        public override bool HandleEvent(TinkeringModifyRechargeCostEvent E) 
+        {
+            E.RechargeValue = 1;
+            return base.HandleEvent(E);
+        }
 	}
 
 	[PlayerMutator]
