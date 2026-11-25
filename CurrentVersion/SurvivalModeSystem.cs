@@ -12,6 +12,7 @@ using XRL.UI.Framework;
 using XRL.World.Capabilities;
 using XRL.World.Parts;
 using XRL.World.Tinkering;
+using XRL.World.Effects;
 using XRL.Liquids;
 using UnityEngine;
 
@@ -27,6 +28,7 @@ namespace XRL.World
             Registrar.Register(GetLibrarianXPEvent.ID);
             Registrar.Register(GetIntrinsicWeightEvent.ID);
             Registrar.Register(TinkeringVendorCostEvent.ID);
+            Registrar.Register(EffectAppliedEvent.ID);
         }
 
         /// <summary>
@@ -139,6 +141,19 @@ namespace XRL.World
             }
             return base.HandleEvent(E);
         }
+
+        public override bool HandleEvent(EffectAppliedEvent E)
+        {
+            if (E.Effect is Lovesick Lovesick)
+            {
+                if (Lovesick.Beauty.ID == The.Player.ID)
+                {
+                    var fx = new LoveLimits();
+                    E.Effect.Object.ApplyEffect(fx);
+                }
+            }
+            return base.HandleEvent(E);
+        }
         
         public void Startup()
         {
@@ -205,7 +220,8 @@ namespace XRL.World
                     "* Much lower starting faction levels, including with certain key factions\n" +
                     "* Water rituals: companions cost more, secrets give you less\n" +
                     "* Fewer XP for turning in books\n" +
-                    "* Fewer XP from defeating lower leveled enemies\n" + 
+                    "* Fewer XP from defeating lower leveled enemies\n" +
+                    "* Love Injectors render target temporarily friendly but NOT a companion\n" +
                     "* Cloned merchants don't get restocking inventories (Sorry, clone-of-Tilli!)\n" +
                     "* Permanent body-swapping increases Psychic Glimmer\n" + 
                     "* Identifying artifacts is much trickier!\n",
